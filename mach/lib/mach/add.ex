@@ -9,9 +9,7 @@ defmodule Mach.Add do
     iex> Mach.Add.reducible?
     true
   """
-  def reducible? do
-    true
-  end
+  def reducible?, do: true
 
   @doc """
   reduce an add operation to a number summing the values

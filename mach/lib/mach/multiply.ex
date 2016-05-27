@@ -9,10 +9,7 @@ defmodule Mach.Multiply do
     iex> Mach.Add.reducible?
     true
   """
-
-  def reducible? do
-    true
-  end
+  def reducible?, do: true
 
   @doc """
   reduce a multiply operation to a number multiplying
