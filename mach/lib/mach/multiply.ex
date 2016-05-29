@@ -34,9 +34,9 @@ defmodule Mach.Multiply do
     iex(2)>   }
     iex(2)> })
     %Mach.Multiply{
-      left: %Mach.Number{value: 2}, 
+      left: %Mach.Number{value: 2},
       right: %Mach.Add{
-        left: %Mach.Number{value: 2}, 
+        left: %Mach.Number{value: 2},
         right: %Mach.Number{value: 2},
       }
     }

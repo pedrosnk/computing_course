@@ -5,7 +5,7 @@ defmodule Mach.Add do
 
   @doc """
   Add Operation is reducible direct to a number
-  
+
     iex> Mach.Add.reducible?
     true
   """
@@ -35,9 +35,9 @@ defmodule Mach.Add do
     iex(2)>   }
     iex(2)> })
     %Mach.Add{
-      left: %Mach.Number{value: 3}, 
+      left: %Mach.Number{value: 3},
       right: %Mach.Add{
-        left: %Mach.Number{value: 2}, 
+        left: %Mach.Number{value: 2},
         right: %Mach.Number{value: 2},
       }
     }

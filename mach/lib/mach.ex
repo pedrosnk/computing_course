@@ -10,7 +10,7 @@ defmodule Mach do
     iex(2)>     right: %Mach.Number{value: 2},
     iex(2)>   },
     iex(1)>   right: %Mach.Add{
-    iex(1)>     left: %Mach.Number{value: 2}, 
+    iex(1)>     left: %Mach.Number{value: 2},
     iex(1)>     right: %Mach.Number{value: 2},
     iex(1)>   }
     iex(1)> })
@@ -25,7 +25,7 @@ defmodule Mach do
     iex(2)>     right: %Mach.Number{value: 2},
     iex(2)>   },
     iex(2)>   right: %Mach.Add{
-    iex(2)>     left: %Mach.Number{value: 2}, 
+    iex(2)>     left: %Mach.Number{value: 2},
     iex(2)>     right: %Mach.Number{value: 2},
     iex(2)>   }
     iex(2)> })
