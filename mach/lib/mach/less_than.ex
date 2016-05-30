@@ -12,20 +12,20 @@ defmodule Mach.LessThan do
   reduce an expression and returns an boolean if it is
   the smalest version of the comparation
 
-    iex(1)> Mach.LessThan.reduce(%Mach.LessThan{
+    iex(1)> Mach.LessThan.reduce(%{}, %Mach.LessThan{
     iex(1)>   left: %Mach.Number{value: 3},
     iex(1)>   right: %Mach.Number{value: 2},
     iex(1)> })
     %Mach.Boolean{value: false}
   """
-  def reduce op do 
+  def reduce env, op do 
     if op.left.__struct__.reducible? do
-      reduced_left = op.left.__struct__.reduce op.left
+      reduced_left = op.left.__struct__.reduce env, op.left
       %Mach.LessThan{
         left: reduced_left, right: op.right
       }
     else if op.right.__struct__.reducible? do
-        reduced_right = op.right.__struct__.reduce op.right
+        reduced_right = op.right.__struct__.reduce env, op.right
         %Mach.LessThan{
           left: op.left, right: reduced_right
         }

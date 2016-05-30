@@ -15,7 +15,7 @@ defmodule Mach.Multiply do
   reduce a multiply operation to a number multiplying
   the values from the left side to the right side
 
-    iex(1)> Mach.Multiply.reduce(%Mach.Multiply{
+    iex(1)> Mach.Multiply.reduce(%{}, %Mach.Multiply{
     iex(1)> left: %Mach.Number{value: 2},
     iex(1)> right: %Mach.Number{value: 3},
     iex(1)> })
@@ -23,7 +23,7 @@ defmodule Mach.Multiply do
 
   Reduce to other operations always resolving first the left
   side
-    iex(2)> Mach.Multiply.reduce(%Mach.Add{
+    iex(2)> Mach.Multiply.reduce(%{}, %Mach.Add{
     iex(2)>   left: %Mach.Multiply{
     iex(2)>     left: %Mach.Number{value: 1},
     iex(2)>     right: %Mach.Number{value: 2},
@@ -41,14 +41,14 @@ defmodule Mach.Multiply do
       }
     }
   """
-  def reduce op do
+  def reduce env, op do
     if op.left.__struct__.reducible? do
-      reduced_left = op.left.__struct__.reduce op.left
+      reduced_left = op.left.__struct__.reduce env, op.left
       %Mach.Multiply{
         left: reduced_left, right: op.right
       }
     else if op.right.__struct__.reducible? do
-        reduced_right = op.right.__struct__.reduce op.right
+        reduced_right = op.right.__struct__.reduce env, op.right
         %Mach.Multiply{
           left: op.left, right: reduced_right
         }

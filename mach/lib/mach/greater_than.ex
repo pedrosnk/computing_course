@@ -12,20 +12,20 @@ defmodule Mach.GreaterThan do
   reduce an expression and return the boolean value of
   comparation
 
-    iex(1)> Mach.GreaterThan.reduce(%Mach.GreaterThan{
+    iex(1)> Mach.GreaterThan.reduce(%{}, %Mach.GreaterThan{
     iex(1)>   left: %Mach.Number{value: 3},
     iex(1)>   right: %Mach.Number{value: 2},
     iex(1)> })
     %Mach.Boolean{value: true}
   """
-  def reduce op do 
+  def reduce env, op do 
     if op.left.__struct__.reducible? do
-      reduced_left = op.left.__struct__.reduce op.left
+      reduced_left = op.left.__struct__.reduce env, op.left
       %Mach.GreaterThan{
         left: reduced_left, right: op.right
       }
     else if op.right.__struct__.reducible? do
-        reduced_right = op.right.__struct__.reduce op.right
+        reduced_right = op.right.__struct__.reduce env, op.right
         %Mach.GreaterThan{
           left: op.left, right: reduced_right
         }
