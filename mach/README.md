@@ -1,24 +1,13 @@
 # Mach
 
-**TODO: Add description**
+A simple projet that helps generating ASTs for a f simple programming language
 
-## Installation
+## How to chec it out?
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+###Read the code. (Simple and has tests for everything)
 
-  1. Add `mach` to your list of dependencies in `mix.exs`:
+###Run the tests
 
-    ```elixir
-    def deps do
-      [{:mach, "~> 0.0.1"}]
-    end
-    ```
-
-  2. Ensure `mach` is started before your application:
-
-    ```elixir
-    def application do
-      [applications: [:mach]]
-    end
-    ```
-
+  ```bash
+    $ mix test
+  ```
