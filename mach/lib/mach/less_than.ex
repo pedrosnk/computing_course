@@ -18,7 +18,7 @@ defmodule Mach.LessThan do
     iex(1)> })
     %Mach.Boolean{value: false}
   """
-  def reduce env, op do 
+  def reduce env, op do
     if op.left.__struct__.reducible? do
       reduced_left = op.left.__struct__.reduce env, op.left
       %Mach.LessThan{
