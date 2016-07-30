@@ -1,4 +1,4 @@
-defmodule Mach.Statement.AddTest do
+defmodule Mach.Statement.DoNothingTest do
   use ExUnit.Case
   alias Mach.Statement.DoNothing
 

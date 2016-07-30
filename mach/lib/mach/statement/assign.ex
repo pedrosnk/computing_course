@@ -15,11 +15,14 @@ defmodule Mach.Statement.Assign do
     iex(1)> Mach.Statement.Assign.reduce(%{}, %Mach.Statement.Assign{
     iex(1)>   name: "x",
     iex(1)>   expression: %Mach.Add{
-    iex(1)>     left: %Mach.number{value: 2},
-    iex(1)>     right: %Mach.number{value: 3},
+    iex(1)>     left: %Mach.Number{value: 2},
+    iex(1)>     right: %Mach.Number{value: 3},
     iex(1)>   },
     iex(1)> })
-    [%{}, %Mach.number{value: 5}]
+    [%{}, %Mach.Statement.Assign{
+      name: "x",
+      expression: %Mach.Number{value: 5}
+    }]
   """
   def reduce env, assign do
     if assign.expression.__struct__.reducible? do
@@ -28,5 +31,11 @@ defmodule Mach.Statement.Assign do
     else
       [env,%DoNothing{}]
     end
+  end
+end
+
+defimpl String.Chars, for: Mach.Statement.Assign do
+  def to_string statement do
+    "#{statement.name} = #{statement.expression}"
   end
 end
