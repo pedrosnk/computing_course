@@ -2,7 +2,6 @@ defmodule Mach.Statement.DoNothing do
   defstruct []
 
   def reducible?, do: false
-
 end
 
 defimpl String.Chars, for: Mach.Statement.DoNothing do

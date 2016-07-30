@@ -23,13 +23,19 @@ defmodule Mach.Statement.Assign do
       name: "x",
       expression: %Mach.Number{value: 5}
     }]
+
+    iex(2)> Mach.Statement.Assign.reduce(%{}, %Mach.Statement.Assign{
+    iex(2)>   name: "x",
+    iex(2)>   expression: %Mach.Number{value: 2}
+    iex(2)> })
+    [%{"x" => %Mach.Number{value: 2}}, %Mach.Statement.DoNothing{}]
   """
   def reduce env, assign do
     if assign.expression.__struct__.reducible? do
       reduced_expression = assign.expression.__struct__.reduce(env, assign.expression)
       [env, %Assign{name: assign.name, expression: reduced_expression}]
     else
-      [env,%DoNothing{}]
+      [Map.merge(env, %{assign.name => assign.expression}), %DoNothing{}]
     end
   end
 end
