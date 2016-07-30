@@ -11,8 +11,8 @@ defmodule Mach.Variable do
   Given a variable, reduce to the correct value that is been held
 
     iex(1)> Mach.Variable.reduce(
-    iex(1)>   %{"foo" => %Mach.Number{value: 1}},
-    iex(1)>   %Mach.Variable{name: "foo"}
+    iex(1)>   %{foo: %Mach.Number{value: 1}},
+    iex(1)>   %Mach.Variable{name: :foo}
     iex(1)> )
     %Mach.Number{value: 1}
 

@@ -13,22 +13,22 @@ defmodule Mach.Statement.Assign do
   reduce an assign statemente by assigning the left side into a k-v variable
 
     iex(1)> Mach.Statement.Assign.reduce(%{}, %Mach.Statement.Assign{
-    iex(1)>   name: "x",
+    iex(1)>   name: :x,
     iex(1)>   expression: %Mach.Add{
     iex(1)>     left: %Mach.Number{value: 2},
     iex(1)>     right: %Mach.Number{value: 3},
     iex(1)>   },
     iex(1)> })
     [%{}, %Mach.Statement.Assign{
-      name: "x",
+      name: :x,
       expression: %Mach.Number{value: 5}
     }]
 
     iex(2)> Mach.Statement.Assign.reduce(%{}, %Mach.Statement.Assign{
-    iex(2)>   name: "x",
+    iex(2)>   name: :x,
     iex(2)>   expression: %Mach.Number{value: 2}
     iex(2)> })
-    [%{"x" => %Mach.Number{value: 2}}, %Mach.Statement.DoNothing{}]
+    [%{x: %Mach.Number{value: 2}}, %Mach.Statement.DoNothing{}]
   """
   def reduce env, assign do
     if assign.expression.__struct__.reducible? do
