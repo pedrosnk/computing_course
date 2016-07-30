@@ -1,13 +1,8 @@
 defmodule Mach.Statement.Assign do
-  defstruct [name: nil, expression: nil]
+  defstruct [name: nil, expression: nil, _reducible?: true]
 
   alias Mach.Statement.DoNothing
   alias Mach.Statement.Assign
-
-  @doc """
-  Assign statement is reducible to until it can reach do-nothing statement
-  """
-  def reducible?, do: true
 
   @doc """
   reduce an assign statemente by assigning the left side into a k-v variable
@@ -30,13 +25,13 @@ defmodule Mach.Statement.Assign do
     iex(2)> })
     [%{x: %Mach.Number{value: 2}}, %Mach.Statement.DoNothing{}]
   """
-  def reduce env, assign do
-    if assign.expression.__struct__.reducible? do
-      reduced_expression = assign.expression.__struct__.reduce(env, assign.expression)
-      [env, %Assign{name: assign.name, expression: reduced_expression}]
-    else
-      [Map.merge(env, %{assign.name => assign.expression}), %DoNothing{}]
-    end
+  def reduce env, %{expression: %{_reducible?: true}} = assign do
+    reduced_expression = assign.expression.__struct__.reduce(env, assign.expression)
+    [env, %Assign{name: assign.name, expression: reduced_expression}]
+  end
+
+  def reduce env, %{expression: %{_reducible?: false}} = assign do
+    [Map.merge(env, %{assign.name => assign.expression}), %DoNothing{}]
   end
 end
 

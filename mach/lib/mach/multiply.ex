@@ -1,15 +1,7 @@
 defmodule Mach.Multiply do
-  defstruct [left: nil, right: nil]
+  defstruct [left: nil, right: nil, _reducible?: true]
 
   alias Mach.Number
-
-  @doc """
-  Multiply Operation is reducible direct to a number
-
-    iex> Mach.Add.reducible?
-    true
-  """
-  def reducible?, do: true
 
   @doc """
   reduce a multiply operation to a number multiplying
@@ -41,22 +33,20 @@ defmodule Mach.Multiply do
       }
     }
   """
-  def reduce env, op do
-    if op.left.__struct__.reducible? do
-      reduced_left = op.left.__struct__.reduce env, op.left
-      %Mach.Multiply{
-        left: reduced_left, right: op.right
-      }
-    else if op.right.__struct__.reducible? do
-        reduced_right = op.right.__struct__.reduce env, op.right
-        %Mach.Multiply{
-          left: op.left, right: reduced_right
-        }
-      else
-        %Number{value: op.left.value * op.right.value}
-      end
-    end
+  def reduce env, %{left: %{_reducible?: true}} = op do
+    reduced_left = op.left.__struct__.reduce env, op.left
+    %Mach.Multiply{left: reduced_left, right: op.right}
   end
+
+  def reduce env, %{right: %{_reducible?: true}} = op do
+    reduced_right = op.right.__struct__.reduce env, op.right
+    %Mach.Multiply{left: op.left, right: reduced_right}
+  end
+
+  def reduce _env, %{right: right, left: left} do
+    %Number{value: left.value * right.value}
+  end
+
 end
 
 defimpl String.Chars, for: Mach.Multiply do

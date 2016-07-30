@@ -1,10 +1,6 @@
 defmodule Mach.Boolean do
-  defstruct [value: true]
+  defstruct [value: true, _reducible: false]
 
-  @doc """
-  Boolean is not a reduciable operation
-  """
-  def reducible?, do: false
 end
 
 defimpl String.Chars, for: Mach.Boolean do

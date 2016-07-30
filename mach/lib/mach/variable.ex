@@ -1,11 +1,5 @@
 defmodule Mach.Variable do
-  defstruct [name: nil]
-
-  @doc """
-  Reducible operation that given an env it reduce to the right value that the
-  variable is storing
-  """
-  def reducible?, do: true
+  defstruct [name: nil, _reducible?: true]
 
   @doc """
   Given a variable, reduce to the correct value that is been held

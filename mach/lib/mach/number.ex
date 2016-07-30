@@ -1,11 +1,6 @@
 defmodule Mach.Number do
-  defstruct [value: 0]
+  defstruct [value: 0, _reducible?: false]
 
-  @doc """
-  Number is not reducible it's possible to just use it's
-  value
-  """
-  def reducible?, do: false
 end
 
 defimpl String.Chars, for: Mach.Number do

@@ -31,13 +31,10 @@ defmodule Mach do
     iex(2)> })
     %Mach.Boolean{value: true}
   """
-  def run env, op do
-    case op.__struct__.reducible? do
-      true ->
-        run(env, op.__struct__.reduce(env, op))
-      _ ->
-        op
-    end
+  def run_single env, %{_reducible?: true} = op do
+    run_single(env, op.__struct__.reduce(env, op))
   end
+
+  def run_single(_env, op), do: op
 
 end
