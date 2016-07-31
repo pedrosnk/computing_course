@@ -29,22 +29,8 @@ defmodule Mach.Statement.If do
     {env, %Mach.Statement.If{statement | condition: reduced_condition}}
   end
 
-  def reduce(env, %{condition: %Boolean{value: true},
-                    consequence: %{_reducible?: true}} = statement) do
-    consequence = statement.consequence
-    reduced_consequence = consequence.__struct__.reduce(env, consequence)
-    {env, %Mach.Statement.If{statement | consequence: reduced_consequence}}
-  end
-
   def reduce(env, %{condition: %Boolean{value: true}} = statement ) do
     {env, statement.consequence}
-  end
-
-  def reduce(env, %{condition: %Boolean{value: false},
-                    alternative: %{_reducible?: true}} = statement) do
-    alternative = statement.alternative
-    reduced_alternative = alternative.__struct__.reduce(env, alternative)
-    {env, %Mach.Statement.If{statement | alternative: reduced_alternative}}
   end
 
   def reduce(env, %{condition: %Boolean{value: false}} = statement) do
