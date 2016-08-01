@@ -22,6 +22,19 @@ defmodule Mach.Statement.If do
     iex(1)>   }
     iex(1)> )
     {%{}, %Mach.Statement.If{condition: %Mach.Boolean{value: true}}}
+
+    iex(2)> Mach.Statement.If.reduce(
+    iex(2)>   %{},
+    iex(2)>   %Mach.Statement.If{
+    iex(2)>     condition: %Mach.Boolean{value: true},
+    iex(2)>     consequence: %Mach.Statement.Assign{
+    iex(2)>       name: :x,
+    iex(2)>       expression: %Mach.Number{value: 2},
+    iex(2)>     }
+    iex(2)>   }
+    iex(2)> )
+    {%{}, %Mach.Statement.Assign{name: :x, expression: %Mach.Number{value: 2}}}
+
   """
   def reduce(env, %{condition: %{_reducible?: true}} = statement) do
     condition = statement.condition
