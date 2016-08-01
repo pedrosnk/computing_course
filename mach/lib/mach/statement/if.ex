@@ -40,7 +40,12 @@ defmodule Mach.Statement.If do
 end
 
 defimpl String.Chars, for: Mach.Statement.If do
-  def to_string statement do
+  def to_string %{ alternative: %Mach.Statement.DoNothing{} } = statement do
     "if (#{statement.condition}) { #{statement.consequence} }"
+  end
+
+  def to_string statement do
+    "if (#{statement.condition}) { #{statement.consequence} }" <>
+    " else { #{statement.alternative} }"
   end
 end
