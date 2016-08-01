@@ -53,7 +53,6 @@ defmodule Mach.Statement.IfTest do
         }
       }
     }
-
     initial_env = %{should_run: %Boolean{value: true}}
     {env, %DoNothing{}} = Mach.run_statement(initial_env, statement)
     assert env[:x] == %Number{value: 7}
