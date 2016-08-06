@@ -6,13 +6,38 @@ defmodule Mach.Statement.Sequence do
     _reducible?: true
   ]
 
-  def reduce env, %{first: {:_reducible?: true}} = statement do
+  @doc """
+  This module is used to sotre a sequence output
+
+    iex(1)> Mach.Statement.Sequence.Reduce(%{}, %Mach.Statement.Sequence{
+    iex(1)>   first: DoNothing{},
+    iex(1)>   second: Mach.Statement.Assign{
+    iex(1)>     name: :x,
+    iex(1)>     expression: %Mach.Number{value: 5}
+    iex(1)>   }
+    iex(1)> })
+    { %{},
+      %Mach.Statement.Sequence{
+        first: Mach.Statement.Assign{
+          name: :x,
+          expression: %Mach.Number{value: 5}
+        }
+      }
+    }
+  """
+  def reduce(env, %{first: %{_reducible?: true}} = statement)do
     reduced_statement = statement.first.__struct__.reduce(env, statement.first)
-    {env, %Sequence{statement | first: reduced_statement}}
+    {env, %Mach.Statement.Sequence{statement | first: reduced_statement}}
   end
 
-  def reduce env, %{second: {:_reducible?: true}} = statement do
-    {env, %Sequence{statement | first: statement.second, second: %DoNothing{}}}
+  def reduce(env, %{second: %{_reducible?: true}} = statement)do
+    {env, %Mach.Statement.Sequence{
+      statement | first: statement.second, second: %DoNothing{}
+    }}
+  end
+
+  def reduce(env, %{first: %{} = %DoNothing{}} = statement) do
+    {env, statement.second}
   end
 
 end
