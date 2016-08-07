@@ -45,5 +45,6 @@ end
 defimpl String.Chars, for: Mach.Statement.Sequence do
   def to_string statement do
     "#{statement.first}\n#{statement.second}\n"
+    |> String.replace(~r/\n(\n)+/, "\n")
   end
 end
