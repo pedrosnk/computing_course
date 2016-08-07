@@ -33,7 +33,7 @@ defmodule Mach.Statement.IfTest do
       alternative: %Assign{name: :x, expression: %Number{value: 5}}
     }
 
-    assert String.Chars.to_string(statement) == 
+    assert String.Chars.to_string(statement) ==
       "if (2 < 3) { x = 4 } else { x = 5 }"
   end
 
